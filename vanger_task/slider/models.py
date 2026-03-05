@@ -8,33 +8,35 @@ class SliderImage(models.Model):
     """Модель изображения для слайдера"""
     
     title = models.CharField(
-        _('Заголовок'),
+        verbose_name=_('Заголовок'),
         max_length=255,
         help_text=_('Название изображения для отображения в админке')
     )
     image = FilerImageField(
-        _('Изображение'),
+        verbose_name=_('Изображение'),
         on_delete=models.CASCADE,
         related_name='slider_images',
-        help_text=_('Загрузите изображение для слайдера через django-filer')
+        help_text=_('Загрузите изображение для слайдера через django-filer'),
+        blank=True,
+        null=True
     )
     description = models.TextField(
-        _('Описание'),
+        verbose_name=_('Описание'),
         blank=True,
         help_text=_('Дополнительное описание (опционально)')
     )
     order = models.PositiveIntegerField(
-        _('Порядок'),
+        verbose_name=_('Порядок'),
         default=0,
         help_text=_('Порядок сортировки (управляется drag&drop в админке)')
     )
     is_active = models.BooleanField(
-        _('Активно'),
+        verbose_name=_('Активно'),
         default=True,
         help_text=_('Показывать изображение в слайдере')
     )
     created_at = models.DateTimeField(
-        _('Дата создания'),
+        verbose_name=_('Дата создания'),
         auto_now_add=True
     )
 
@@ -45,10 +47,3 @@ class SliderImage(models.Model):
 
     def __str__(self):
         return self.title or f'Изображение #{self.id}'
-
-    def thumbnail(self):
-        """Метод для отображения превью в админке"""
-        if self.image and self.image.thumbnails:
-            return self.image.thumbnails['admin_thumb']
-        return None
-    thumbnail.short_description = _('Превью')

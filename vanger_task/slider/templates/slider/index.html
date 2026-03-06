@@ -1,216 +1,65 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тестовый слайдер</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Slick Slider CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-    
-    <style>
-        /* Стили для слайдера */
-        .slider-for { width: 100%; max-width: 900px; margin: 0 auto; }
-        .slider-for img { 
-            width: 100%; 
-            height: 500px; 
-            object-fit: cover; 
-            cursor: zoom-in;
-            border-radius: 8px;
-        }
-        
-        .slider-nav { 
-            width: 100%; 
-            max-width: 900px; 
-            margin: 20px auto 0; 
-        }
-        .slider-nav img { 
-            width: 100%; 
-            height: 100px; 
-            object-fit: cover; 
-            cursor: pointer;
-            border-radius: 4px;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-        .slider-nav .slick-current img { opacity: 1; border: 2px solid #0d6efd; }
-        
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        .lightbox.active { display: flex; }
-        .lightbox img { 
-            max-width: 90%; 
-            max-height: 90%; 
-            object-fit: contain;
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px; right: 30px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 10000;
-        }
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            padding: 20px;
-            user-select: none;
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-    </style>
-</head>
-<body class="bg-light">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vanger_Task</title>
+	
+	<!-- Bootstrap 5 CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Slick Slider CSS -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+	<!-- Стили для слайдера -->
+	<link rel="stylesheet" href="{% static '/css/style.css' %}">
 
-<div class="container py-5">
+	<!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+	<script src= "{% static '/js/script.js' %}" defer></script>
+</head>
+
+<!-- ============================== sliders -->
+<body class="bg-light">
+  <div class="container py-5">
     <h1 class="text-center mb-4">Галерея слайдера</h1>
-    
+
     <!-- Основной слайдер -->
     <div class="slider-for">
-        {% for item in images %}
-            <div>
-                <img src="{{ item.image.url }}" 
-                     alt="{{ item.title }}" 
-                     data-index="{{ forloop.counter0 }}"
-                     class="img-fluid slider-main-image">
-            </div>
-        {% empty %}
-            <div class="text-center text-muted py-5">
-                <p>Изображения не добавлены</p>
-            </div>
-        {% endfor %}
+			{% for item in images %}
+				<div>
+					<img src="{{ item.image.url }}"  alt="{{ item.title }}"  data-index="{{ forloop.counter0 }}" class="img-fluid slider-main-image">
+				</div>
+			{% empty %}
+				<div class="text-center text-muted py-5">
+					<p>Изображения не добавлены</p>
+				</div>
+			{% endfor %}
     </div>
     
     <!-- Навигационный слайдер -->
     {% if images %}
     <div class="slider-nav">
-        {% for item in images %}
-            <div>
-                <img src="{{ item.image.url }}" alt="{{ item.title }}">
-            </div>
-        {% endfor %}
+			{% for item in images %}
+				<div>
+					<img src="{{ item.image.url }}" alt="{{ item.title }}">
+				</div>
+			{% endfor %}
     </div>
     {% endif %}
-</div>
+  </div> <!-- class="container py-5" -->
+	
 
-<!-- Lightbox галерея -->
-<div class="lightbox" id="lightbox">
-    <span class="lightbox-close">&times;</span>
-    <span class="lightbox-nav lightbox-prev">&#10094;</span>
-    <img src="" alt="" id="lightbox-img">
-    <span class="lightbox-nav lightbox-next">&#10095;</span>
-</div>
+	<!-- ============================== Lightbox галерея -->
+	<div class="lightbox" id="lightbox">
+		<span class="lightbox-close">&times;</span>
+		<span class="lightbox-nav lightbox-prev">&#10094;</span>
+		<img src="" alt="" id="lightbox-img">
+		<span class="lightbox-nav lightbox-next">&#10095;</span>
+	</div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-<script>
-$(document).ready(function(){
-    // Инициализация Slick Slider Syncing [[23]]
-    $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-    });
-    
-    $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        centerMode: true,
-        focusOnSelect: true,
-        responsive: [{
-            breakpoint: 768,
-            settings: { slidesToShow: 2 }
-        }, {
-            breakpoint: 480,
-            settings: { slidesToShow: 1 }
-        }]
-    });
-    
-    // Lightbox функционал
-    const $lightbox = $('#lightbox');
-    const $lightboxImg = $('#lightbox-img');
-    let currentImageIndex = 0;
-    // const images = {% for item in images %}"{{ item.image.url }}"{% if not forloop.last %},{% endif %}{% endfor %};
-    const images = {}
-    
-    // Открытие lightbox по клику на большое изображение
-    $('.slider-main-image').on('click', function() {
-        currentImageIndex = parseInt($(this).data('index'));
-        showLightbox(currentImageIndex);
-    });
-    
-    function showLightbox(index) {
-        if (images.length === 0) return;
-        $lightboxImg.attr('src', images[index]);
-        $lightbox.addClass('active');
-        $('body').css('overflow', 'hidden');
-    }
-    
-    function closeLightbox() {
-        $lightbox.removeClass('active');
-        $('body').css('overflow', '');
-    }
-    
-    // Навигация в lightbox
-    $('.lightbox-close').on('click', closeLightbox);
-    
-    $('.lightbox-next').on('click', function(e) {
-        e.stopPropagation();
-        currentImageIndex = (currentImageIndex + 1) % images.length;
-        showLightbox(currentImageIndex);
-    });
-    
-    $('.lightbox-prev').on('click', function(e) {
-        e.stopPropagation();
-        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        showLightbox(currentImageIndex);
-    });
-    
-    // Закрытие по клику вне изображения
-    $lightbox.on('click', function(e) {
-        if ($(e.target).is($lightbox)) closeLightbox();
-    });
-    
-    // Управление клавиатурой
-    $(document).on('keydown', function(e) {
-        if (!$lightbox.hasClass('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            showLightbox(currentImageIndex);
-        }
-        if (e.key === 'ArrowLeft') {
-            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            showLightbox(currentImageIndex);
-        }
-    });
-});
-</script>
-
-</body>
+</body> 
 </html>

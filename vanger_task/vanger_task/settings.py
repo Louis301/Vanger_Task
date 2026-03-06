@@ -15,13 +15,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    
+    'django.contrib.staticfiles',    
     # Сторонние пакеты
     'easy_thumbnails',
     'filer',
-    'adminsortable2',
-    
+    'adminsortable2',    
     # Локальные приложения
     'slider',
 ]
@@ -48,7 +46,6 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                # 'django.contrib.messages.context_processors.message',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
